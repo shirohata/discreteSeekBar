@@ -144,6 +144,7 @@ public class DiscreteSeekBar extends View {
     private int mValue;
     private int mKeyProgressIncrement = 1;
     private boolean mMirrorForRtl = false;
+    private boolean mForceMirror = false;
     private boolean mAllowTrackClick = true;
     private boolean mIndicatorPopupEnabled = true;
     //We use our own Formatter to avoid creating new instances on every progress change
@@ -194,6 +195,7 @@ public class DiscreteSeekBar extends View {
         int min = 0;
         int value = 0;
         mMirrorForRtl = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_mirrorForRtl, mMirrorForRtl);
+        mForceMirror = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_forceMirror, mForceMirror);
         mAllowTrackClick = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_allowTrackClickToDrag, mAllowTrackClick);
         mIndicatorPopupEnabled = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_indicatorPopupEnabled, mIndicatorPopupEnabled);
         int indexMax = R.styleable.DiscreteSeekBar_dsb_max;
@@ -968,7 +970,7 @@ public class DiscreteSeekBar extends View {
     }
 
     public boolean isRtl() {
-        return (ViewCompat.getLayoutDirection(this) == LAYOUT_DIRECTION_RTL) && mMirrorForRtl;
+        return mForceMirror || ((ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL) && mMirrorForRtl);
     }
 
     @Override
